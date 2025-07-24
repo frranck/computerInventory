@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  computer-inventory:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: computer-inventory
+    ports:
+      - "3000:3000"
+    environment:
+      - NOTIFICATION_URL=http://admin-notification:8080
+    depends_on:
+      - admin-notification
+
+  admin-notification:
+    image: greenbone/exercise-admin-notification
+    container_name: admin-notification
+    ports:
+      - "8080:8080"
+    platform: linux/amd64
